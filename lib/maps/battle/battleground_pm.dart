@@ -15,7 +15,7 @@ class BattlegroundPm extends StatelessWidget {
         alignment: Alignment(x, y),
         child: Image.asset(
           'lib/pokemom_image/battleground.png',
-          width: MediaQuery.of(context).size.width * 0.75,
+          width: MediaQuery.of(context).size.width * 0.05,
           fit: BoxFit.cover,
         ),
       );
