@@ -227,8 +227,33 @@ const List<List<double>> noMansLandLittleroot = [
   [-0.3, 2.75],
   [-0.1, 2.75],
   //oak
-  [0.1, 0.75],
+
+  //[0.1, 0.35],
   [0.1, 0.55],
+  //[-0.1, 0.35],
   [-0.1, 0.55],
-  [-0.1, 0.75],
 ];
+
+//[0.3, 0.55],(izquerda)
+//[0.1, 0.35],(frente)
+//[-0.3, 0.55],(derecha)
+//[0.1, 0.75],(atras)
+
+// Coordenadas de Profesor Oak
+
+const Map<String, List<List<double>>> oakPositions = {
+  'Left': [
+    [0.3, 0.55]
+  ], // Izquierda
+  'Down': [
+    [0.1, 0.35],
+    [-0.1, 0.35]
+  ], // Frente
+  'Right': [
+    [-0.3, 0.55]
+  ], // Derecha
+  'Up': [
+    [0.1, 0.75],
+    [-0.1, 0.75]
+  ], // Atrás
+};

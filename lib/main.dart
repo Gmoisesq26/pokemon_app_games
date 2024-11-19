@@ -104,6 +104,14 @@ class _HomePageState extends State<HomePage> {
           LabmapY -= step;
         });
       }
+      if (double.parse((LabmapX).toStringAsFixed(4)) == -0.4 &&
+          double.parse((LabmapY).toStringAsFixed(4)) == -5.0) {
+        setState(() {
+          currentLocation = 'littleroot';
+          mapX = 0.9;
+          mapY = -1.25;
+        });
+      }
     }
 
     animateWalk();
@@ -149,8 +157,43 @@ class _HomePageState extends State<HomePage> {
     animateWalk();
   }
 
-  void pressedB() {}
-  void pressedA() {}
+  bool showImage = false; // Variable para rastrear si se debe mostrar la imagen
+
+  void pressedB() {
+    setState(() {
+      showImage = false; // Cambia el estado para ocultar la imagen
+    });
+  }
+
+  void pressedA() {
+    double interactionRange = 0.1;
+
+    if (currentLocation == 'littleroot') {
+      // Recorre cada dirección y sus posiciones
+      for (var entry in oakPositions.entries) {
+        String direction = entry.key; // Obtiene la dirección
+        List<List<double>> positions = entry.value;
+
+        for (var position in positions) {
+          double oakX = position[0];
+          double oakY = position[1];
+
+          // Verifica si el jugador está cerca de Oak
+          if ((cleanNum(mapX - oakX).abs() < interactionRange) &&
+              (cleanNum(mapY - oakY).abs() < interactionRange)) {
+            // Aquí ya tenemos la dirección directamente de la entrada
+            String oakDirection = direction; // Asigna la dirección directamente
+
+            // Muestra la imagen y actualiza la dirección
+            setState(() {
+              showImage = true;
+              this.oakDirection = oakDirection; // Actualiza la dirección de Oak
+            });
+          }
+        }
+      }
+    }
+  }
 
   void animateWalk() {
     print('x: ' + mapX.toString() + ', y: ' + mapY.toString());
@@ -223,7 +266,7 @@ class _HomePageState extends State<HomePage> {
 
                   //MyBoy
                   Container(
-                    alignment: Alignment(0, 0),
+                    alignment: const Alignment(0, 0),
                     child: MyBoy(
                       location: currentLocation,
                       boySpriteCount: boySpriteCount,
@@ -233,13 +276,21 @@ class _HomePageState extends State<HomePage> {
 
                   //ProfessorOak
                   Container(
-                    alignment: Alignment(0, 0),
+                    alignment: const Alignment(0, 0),
                     child: ProfOak(
-                        x: mapX,
-                        y: mapY,
-                        location: currentLocation,
-                        oakDirection: oakDirection),
-                  )
+                      x: mapX,
+                      y: mapY + 0.05,
+                      location: currentLocation,
+                      oakDirection: oakDirection,
+                    ),
+                  ),
+                  // Mostrar la imagen si showImage es true
+                  if (showImage)
+                    Container(
+                      alignment: Alignment.center,
+                      child: Image.asset(
+                          'lib/pokemom_image/text.png'), // Muestra la imagen
+                    ),
                 ],
               ),
             ),
