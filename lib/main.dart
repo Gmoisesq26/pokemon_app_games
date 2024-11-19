@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:pokemon_app_games/characters/oak.dart';
+import 'package:pokemon_app_games/maps/battle/battleground_pm.dart';
 import 'package:pokemon_app_games/maps/boundaries.dart';
 import 'package:flutter/material.dart';
 import 'package:pokemon_app_games/button.dart';
@@ -44,6 +45,10 @@ class _HomePageState extends State<HomePage> {
   double LabmapX = 0;
   double LabmapY = 0;
 
+  //battleground
+  double battlemapX = 0;
+  double battlemapY = 0;
+
   //professor oak
   String oakDirection = 'Down';
   static double oakX = 0.1;
@@ -60,6 +65,8 @@ class _HomePageState extends State<HomePage> {
   double step = 0.20;
 
   //no mans land for littleroot(package:pokemon_app_games/maps/boundaries.dart)
+  int aClickCount = 0;
+  Timer? _clickTimer;
 
   void moveUp() {
     boyDirection = 'Up';
@@ -160,35 +167,72 @@ class _HomePageState extends State<HomePage> {
   bool showImage = false; // Variable para rastrear si se debe mostrar la imagen
 
   void pressedB() {
-    setState(() {
-      showImage = false; // Cambia el estado para ocultar la imagen
-    });
+    if (currentLocation == 'littleroot') {
+      setState(() {
+        showImage = false; // Cambia el estado para ocultar la imagen
+      });
+    } else if (currentLocation == 'battleground') {
+      setState(() {
+        showImage = false; // Cambia el estado para ocultar la imagen
+      });
+    }
   }
 
   void pressedA() {
-    double interactionRange = 0.1;
+    aClickCount++;
+    if (_clickTimer != null && _clickTimer!.isActive) {
+      _clickTimer!.cancel();
+    }
+    _clickTimer = Timer(Duration(seconds: 1), () {
+      aClickCount = 0;
+    });
 
     if (currentLocation == 'littleroot') {
-      // Recorre cada dirección y sus posiciones
-      for (var entry in oakPositions.entries) {
-        String direction = entry.key; // Obtiene la dirección
-        List<List<double>> positions = entry.value;
+      if (aClickCount == 1) {
+        double interactionRange = 0.1;
 
-        for (var position in positions) {
-          double oakX = position[0];
-          double oakY = position[1];
+        // Recorre cada dirección y sus posiciones
+        for (var entry in oakPositions.entries) {
+          String direction = entry.key; // Obtiene la dirección
+          List<List<double>> positions = entry.value;
 
-          // Verifica si el jugador está cerca de Oak
-          if ((cleanNum(mapX - oakX).abs() < interactionRange) &&
-              (cleanNum(mapY - oakY).abs() < interactionRange)) {
-            // Aquí ya tenemos la dirección directamente de la entrada
-            String oakDirection = direction; // Asigna la dirección directamente
+          for (var position in positions) {
+            double oakX = position[0];
+            double oakY = position[1];
 
-            // Muestra la imagen y actualiza la dirección
-            setState(() {
-              showImage = true;
-              this.oakDirection = oakDirection; // Actualiza la dirección de Oak
-            });
+            // Verifica si el jugador está cerca de Oak
+            if ((cleanNum(mapX - oakX).abs() < interactionRange) &&
+                (cleanNum(mapY - oakY).abs() < interactionRange)) {
+              // Aquí ya tenemos la dirección directamente de la entrada
+              String oakDirection =
+                  direction; // Asigna la dirección directamente
+
+              // Muestra la imagen y actualiza la dirección
+              setState(() {
+                showImage = true;
+                this.oakDirection =
+                    oakDirection; // Actualiza la dirección de Oak
+              });
+            }
+          }
+        }
+      } else if (aClickCount == 2) {
+        double interactionRange =
+            0.1; // Recorre cada dirección y sus posiciones
+        for (var entry in oakPositions.entries) {
+          String direction = entry.key; // Obtiene la dirección
+          List<List<double>> positions = entry.value;
+          for (var position in positions) {
+            double battlemapX = position[0];
+            double battlemapY = position[1];
+            if ((cleanNum(mapX - battlemapX).abs() < interactionRange) &&
+                (cleanNum(mapY - battlemapY).abs() < interactionRange)) {
+              setState(() {
+                currentLocation = 'battleground';
+                mapX = 0;
+                mapY = 0;
+              });
+            }
           }
         }
       }
