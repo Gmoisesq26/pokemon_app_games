@@ -1,5 +1,9 @@
 import 'dart:async';
+import 'package:pokemon_app_games/characters/arow.dart';
 import 'package:pokemon_app_games/characters/oak.dart';
+import 'package:pokemon_app_games/maps/arowboundaries.dart';
+import 'package:pokemon_app_games/maps/attacaboundarues.dart';
+import 'package:pokemon_app_games/maps/battle/attackoption.dart';
 import 'package:pokemon_app_games/maps/battle/battleground_pm.dart';
 import 'package:pokemon_app_games/maps/boundaries.dart';
 import 'package:flutter/material.dart';
@@ -45,9 +49,14 @@ class _HomePageState extends State<HomePage> {
   double LabmapX = 0;
   double LabmapY = 0;
 
-  //battleground
-  double battlemapX = 0;
-  double battlemapY = 0;
+  //battleground_arow
+  double battlemapX = 0.1;
+  double battlemapY = 0.32;
+
+  //attaca
+
+  double attacamapX = 0;
+  double attacamapY = 0;
 
   //professor oak
   String oakDirection = 'Down';
@@ -59,6 +68,9 @@ class _HomePageState extends State<HomePage> {
   //boycharacter
   int boySpriteCount = 0;
   String boyDirection = 'Down';
+// Arowcharcter
+  int arowSpriteCount = 0;
+  String arowDirection = 'Down';
 
   //game stuff
   String currentLocation = 'littleroot';
@@ -68,8 +80,11 @@ class _HomePageState extends State<HomePage> {
   int aClickCount = 0;
   Timer? _clickTimer;
 
+// move -------------------------------------------------------------------------------------------------------------------------------
+
   void moveUp() {
     boyDirection = 'Up';
+    arowDirection = 'Up';
 
     if (currentLocation == 'littleroot') {
       if (canMoveTo(boyDirection, noMansLandLittleroot, mapX, mapY)) {
@@ -91,13 +106,59 @@ class _HomePageState extends State<HomePage> {
           LabmapY += step;
         });
       }
+    } else if (currentLocation == 'battleground') {
+      if (canMoveTo(
+          boyDirection, noMansLandBatttleGround, battlemapX, battlemapY)) {
+        setState(() {
+          battlemapY -= step;
+        });
+      }
+      if (double.parse((battlemapX).toStringAsFixed(4)) == 0.1 &&
+          double.parse((battlemapY).toStringAsFixed(4)) == 0.22) {
+        setState(() {
+          currentLocation = 'battleground';
+          battlemapX = 0.1;
+          battlemapY = 0.32;
+        });
+      }
+      if (double.parse((battlemapX).toStringAsFixed(4)) == 0.45 &&
+          double.parse((battlemapY).toStringAsFixed(4)) == 0.22) {
+        setState(() {
+          currentLocation = 'battleground';
+          battlemapX = 0.45;
+          battlemapY = 0.32;
+        });
+      }
+      if (double.parse((battlemapX).toStringAsFixed(4)) == 0.1 &&
+          double.parse((battlemapY).toStringAsFixed(4)) == 0.12) {
+        setState(() {
+          currentLocation = 'battleground';
+          battlemapX = 0.1;
+          battlemapY = 0.42;
+        });
+      }
+      if (double.parse((battlemapX).toStringAsFixed(4)) == 0.45 &&
+          double.parse((battlemapY).toStringAsFixed(4)) == 0.12) {
+        setState(() {
+          currentLocation = 'battleground';
+          battlemapX = 0.45;
+          battlemapY = 0.42;
+        });
+      }
+    } else if (currentLocation == 'attackoption') {
+      if (canMoveTo(
+          boyDirection, noMansLandAttackOption, attacamapX, attacamapY)) {
+        setState(() {
+          attacamapY -= step;
+        });
+      }
     }
-
     animateWalk();
   }
 
   void moveDown() {
     boyDirection = 'Down';
+    arowDirection = 'Down';
 
     if (currentLocation == 'littleroot') {
       if (canMoveTo(boyDirection, noMansLandLittleroot, mapX, mapY)) {
@@ -119,6 +180,52 @@ class _HomePageState extends State<HomePage> {
           mapY = -1.25;
         });
       }
+    } else if (currentLocation == 'battleground') {
+      if (canMoveTo(
+          boyDirection, noMansLandBatttleGround, battlemapX, battlemapY)) {
+        setState(() {
+          battlemapY += step;
+        });
+      }
+      if (double.parse((battlemapX).toStringAsFixed(4)) == 0.1 &&
+          double.parse((battlemapY).toStringAsFixed(4)) == 0.52) {
+        setState(() {
+          currentLocation = 'battleground';
+          battlemapX = 0.1;
+          battlemapY = 0.42;
+        });
+      }
+      if (double.parse((battlemapX).toStringAsFixed(4)) == 0.45 &&
+          double.parse((battlemapY).toStringAsFixed(4)) == 0.52) {
+        setState(() {
+          currentLocation = 'battleground';
+          battlemapX = 0.45;
+          battlemapY = 0.42;
+        });
+      }
+      if (double.parse((battlemapX).toStringAsFixed(4)) == 0.1 &&
+          double.parse((battlemapY).toStringAsFixed(4)) == 0.62) {
+        setState(() {
+          currentLocation = 'battleground';
+          battlemapX = 0.1;
+          battlemapY = 0.32;
+        });
+      }
+      if (double.parse((battlemapX).toStringAsFixed(4)) == 0.45 &&
+          double.parse((battlemapY).toStringAsFixed(4)) == 0.62) {
+        setState(() {
+          currentLocation = 'battleground';
+          battlemapX = 0.45;
+          battlemapY = 0.32;
+        });
+      }
+    } else if (currentLocation == 'attackoption') {
+      if (canMoveTo(
+          boyDirection, noMansLandAttackOption, attacamapX, attacamapY)) {
+        setState(() {
+          attacamapY += step;
+        });
+      }
     }
 
     animateWalk();
@@ -126,6 +233,7 @@ class _HomePageState extends State<HomePage> {
 
   void moveLeft() {
     boyDirection = 'Left';
+    arowDirection = 'Left';
 
     if (currentLocation == 'littleroot') {
       if (canMoveTo(boyDirection, noMansLandLittleroot, mapX, mapY)) {
@@ -139,13 +247,59 @@ class _HomePageState extends State<HomePage> {
           LabmapX += step;
         });
       }
+    } else if (currentLocation == 'battleground') {
+      if (canMoveTo(
+          boyDirection, noMansLandBatttleGround, battlemapX, battlemapY)) {
+        setState(() {
+          battlemapX -= step;
+        });
+      }
+      if (double.parse((battlemapX).toStringAsFixed(4)) == 0.25 &&
+          double.parse((battlemapY).toStringAsFixed(4)) == 0.32) {
+        setState(() {
+          currentLocation = 'battleground';
+          battlemapX = 0.1;
+          battlemapY = 0.32;
+        });
+      }
+      if (double.parse((battlemapX).toStringAsFixed(4)) == 0.25 &&
+          double.parse((battlemapY).toStringAsFixed(4)) == 0.42) {
+        setState(() {
+          currentLocation = 'battleground';
+          battlemapX = 0.1;
+          battlemapY = 0.42;
+        });
+      }
+      if (double.parse((battlemapX).toStringAsFixed(4)) == -0.1 &&
+          double.parse((battlemapY).toStringAsFixed(4)) == 0.32) {
+        setState(() {
+          currentLocation = 'battleground';
+          battlemapX = 0.45;
+          battlemapY = 0.32;
+        });
+      }
+      if (double.parse((battlemapX).toStringAsFixed(4)) == -0.1 &&
+          double.parse((battlemapY).toStringAsFixed(4)) == 0.42) {
+        setState(() {
+          currentLocation = 'battleground';
+          battlemapX = 0.45;
+          battlemapY = 0.42;
+        });
+      }
+    } else if (currentLocation == 'attackoption') {
+      if (canMoveTo(
+          boyDirection, noMansLandAttackOption, attacamapX, attacamapY)) {
+        setState(() {
+          attacamapX -= step;
+        });
+      }
     }
-
     animateWalk();
   }
 
   void moveRight() {
     boyDirection = 'Right';
+    arowDirection = 'Right';
 
     if (currentLocation == 'littleroot') {
       if (canMoveTo(boyDirection, noMansLandLittleroot, mapX, mapY)) {
@@ -159,22 +313,85 @@ class _HomePageState extends State<HomePage> {
           LabmapX -= step;
         });
       }
+    } else if (currentLocation == 'battleground') {
+      if (canMoveTo(
+          boyDirection, noMansLandBatttleGround, battlemapX, battlemapY)) {
+        setState(() {
+          battlemapX += step;
+        });
+      }
+      if (double.parse((battlemapX).toStringAsFixed(4)) == 0.3 &&
+          double.parse((battlemapY).toStringAsFixed(4)) == 0.32) {
+        setState(() {
+          currentLocation = 'battleground';
+          battlemapX = 0.45;
+          battlemapY = 0.32;
+        });
+      }
+      if (double.parse((battlemapX).toStringAsFixed(4)) == 0.3 &&
+          double.parse((battlemapY).toStringAsFixed(4)) == 0.42) {
+        setState(() {
+          currentLocation = 'battleground';
+          battlemapX = 0.45;
+          battlemapY = 0.42;
+        });
+      }
+      if (double.parse((battlemapX).toStringAsFixed(4)) == 0.65 &&
+          double.parse((battlemapY).toStringAsFixed(4)) == 0.32) {
+        setState(() {
+          currentLocation = 'battleground';
+          battlemapX = 0.1;
+          battlemapY = 0.32;
+        });
+      }
+      if (double.parse((battlemapX).toStringAsFixed(4)) == 0.65 &&
+          double.parse((battlemapY).toStringAsFixed(4)) == 0.42) {
+        setState(() {
+          currentLocation = 'battleground';
+          battlemapX = 0.1;
+          battlemapY = 0.42;
+        });
+      }
+    } else if (currentLocation == 'attackoption') {
+      if (canMoveTo(
+          boyDirection, noMansLandAttackOption, attacamapX, attacamapY)) {
+        setState(() {
+          attacamapX += step;
+        });
+      }
     }
 
     animateWalk();
   }
+//
 
   bool showImage = false; // Variable para rastrear si se debe mostrar la imagen
+
+  void changeLocation(String newLocation) {
+    setState(() {
+      // Detectar si estamos regresando a littleroot
+      if (currentLocation != 'littleroot' && newLocation == 'littleroot') {
+        showImage = false; // Ocultar la imagen al regresar
+      }
+      currentLocation = newLocation; // Actualizar la ubicación actual
+    });
+  }
 
   void pressedB() {
     if (currentLocation == 'littleroot') {
       setState(() {
         showImage = false; // Cambia el estado para ocultar la imagen
       });
-    } else if (currentLocation == 'battleground') {
-      setState(() {
-        showImage = false; // Cambia el estado para ocultar la imagen
-      });
+    }
+    if (currentLocation == 'attackoption') {
+      if (double.parse((attacamapX).toStringAsFixed(4)) == -0.7 &&
+          double.parse((attacamapY).toStringAsFixed(4)) == 0.3) {
+        setState(() {
+          currentLocation = 'battleground';
+          battlemapX = 0.1;
+          battlemapY = 0.32;
+        });
+      }
     }
   }
 
@@ -218,7 +435,7 @@ class _HomePageState extends State<HomePage> {
         }
       } else if (aClickCount == 2) {
         double interactionRange =
-            0.1; // Recorre cada dirección y sus posiciones
+            0.2; // Recorre cada dirección y sus posiciones
         for (var entry in oakPositions.entries) {
           String direction = entry.key; // Obtiene la dirección
           List<List<double>> positions = entry.value;
@@ -237,19 +454,52 @@ class _HomePageState extends State<HomePage> {
         }
       }
     }
+    if (currentLocation == 'battleground') {
+      if (aClickCount == 1) {
+        if (double.parse((battlemapX).toStringAsFixed(4)) == 0.45 &&
+            double.parse((battlemapY).toStringAsFixed(4)) == 0.42) {
+          setState(() {
+            currentLocation = 'littleroot';
+            mapX = 0.1000000000000002;
+            mapY = 0.15000000000000002;
+          });
+        }
+      }
+    }
+    if (currentLocation == 'battleground') {
+      if (aClickCount == 1) {
+        if (double.parse((battlemapX).toStringAsFixed(4)) == 0.1 &&
+            double.parse((battlemapY).toStringAsFixed(4)) == 0.32) {
+          setState(() {
+            currentLocation = 'attackoption';
+            attacamapX = -0.7;
+            attacamapY = 0.3;
+          });
+        }
+      }
+    }
   }
+//-----------------------------------------------------------------------------------------------------------------------------------------
 
   void animateWalk() {
     print('x: ' + mapX.toString() + ', y: ' + mapY.toString());
     print('x: ' + LabmapX.toString() + ', y: ' + LabmapY.toString());
+    print('x: ' + battlemapX.toString() + ', y: ' + battlemapY.toString());
+    print('x: ' + attacamapX.toString() + ', y: ' + attacamapY.toString());
 
     Timer.periodic(Duration(milliseconds: 50), (timer) {
       setState(() {
         boySpriteCount++;
+        arowSpriteCount++;
       });
 
       if (boySpriteCount == 3) {
         boySpriteCount = 0;
+        timer.cancel();
+      }
+
+      if (arowSpriteCount == 3) {
+        arowSpriteCount = 0;
         timer.cancel();
       }
     });
@@ -308,6 +558,12 @@ class _HomePageState extends State<HomePage> {
                   MyPokeLab(
                       x: LabmapX, y: LabmapY, currentMap: currentLocation),
 
+                  // battleground
+                  BattlegroundPm(x: 0, y: 0, currentMap: currentLocation),
+
+                  //attackoption
+                  Attackoption(x: 0, y: 0, currentMap: currentLocation),
+
                   //MyBoy
                   Container(
                     alignment: const Alignment(0, 0),
@@ -317,6 +573,27 @@ class _HomePageState extends State<HomePage> {
                       direction: boyDirection,
                     ),
                   ),
+
+                  //Arow battleground
+                  if (currentLocation == 'battleground')
+                    Container(
+                      alignment: Alignment(battlemapX, battlemapY),
+                      child: Arow(
+                        location: currentLocation,
+                        arowSpriteCount: arowSpriteCount,
+                        direction: arowDirection,
+                      ),
+                    ),
+                  //Arow attackoption
+                  if (currentLocation == 'attackoption')
+                    Container(
+                      alignment: Alignment(attacamapX, attacamapY),
+                      child: Arow(
+                        location: currentLocation,
+                        arowSpriteCount: arowSpriteCount,
+                        direction: arowDirection,
+                      ),
+                    ),
 
                   //ProfessorOak
                   Container(
@@ -329,11 +606,12 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   // Mostrar la imagen si showImage es true
-                  if (showImage)
+                  if (currentLocation == 'littleroot' && showImage)
                     Container(
                       alignment: Alignment.center,
                       child: Image.asset(
-                          'lib/pokemom_image/text.png'), // Muestra la imagen
+                        'lib/pokemom_image/text.png', // Muestra la imagen
+                      ),
                     ),
                 ],
               ),
