@@ -367,16 +367,6 @@ class _HomePageState extends State<HomePage> {
 
   bool showImage = false; // Variable para rastrear si se debe mostrar la imagen
 
-  void changeLocation(String newLocation) {
-    setState(() {
-      // Detectar si estamos regresando a littleroot
-      if (currentLocation != 'littleroot' && newLocation == 'littleroot') {
-        showImage = false; // Ocultar la imagen al regresar
-      }
-      currentLocation = newLocation; // Actualizar la ubicación actual
-    });
-  }
-
   void pressedB() {
     if (currentLocation == 'littleroot') {
       setState(() {
@@ -462,6 +452,7 @@ class _HomePageState extends State<HomePage> {
             currentLocation = 'littleroot';
             mapX = 0.1000000000000002;
             mapY = 0.15000000000000002;
+            showImage = false;
           });
         }
       }
@@ -474,6 +465,20 @@ class _HomePageState extends State<HomePage> {
             currentLocation = 'attackoption';
             attacamapX = -0.7;
             attacamapY = 0.3;
+            showImage = false;
+          });
+        }
+      }
+    }
+    if (currentLocation == 'attackoption') {
+      if (aClickCount == 2) {
+        if (double.parse((attacamapX).toStringAsFixed(4)) == -0.7 &&
+            double.parse((attacamapY).toStringAsFixed(4)) == 0.3) {
+          setState(() {
+            attacamapX =
+                -0.7; // Asegúrate de que estas variables estén definidas
+            attacamapY = 0.3;
+            showImage = true; // Cambia el estado para mostrar la imagen
           });
         }
       }
@@ -611,6 +616,13 @@ class _HomePageState extends State<HomePage> {
                       alignment: Alignment.center,
                       child: Image.asset(
                         'lib/pokemom_image/text.png', // Muestra la imagen
+                      ),
+                    ),
+                  if (currentLocation == 'attackoption' && showImage)
+                    Container(
+                      alignment: const Alignment(0.4, -0.3),
+                      child: Image.asset(
+                        'lib/pokemom_image/attackimage.png', // Muestra la imagen
                       ),
                     ),
                 ],
