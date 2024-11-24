@@ -152,6 +152,13 @@ class _HomePageState extends State<HomePage> {
           attacamapY -= step;
         });
       }
+      if (double.parse((attacamapX).toStringAsFixed(4)) == -0.7 &&
+          double.parse((attacamapY).toStringAsFixed(4)) == 0.1) {
+        setState(() {
+          attacamapX = -0.7; // Asegúrate de que estas variables estén definidas
+          attacamapY = 0.3;
+        });
+      }
     }
     animateWalk();
   }
@@ -178,6 +185,7 @@ class _HomePageState extends State<HomePage> {
           currentLocation = 'littleroot';
           mapX = 0.9;
           mapY = -1.25;
+          showImage = false;
         });
       }
     } else if (currentLocation == 'battleground') {
@@ -224,6 +232,13 @@ class _HomePageState extends State<HomePage> {
           boyDirection, noMansLandAttackOption, attacamapX, attacamapY)) {
         setState(() {
           attacamapY += step;
+        });
+      }
+      if (double.parse((attacamapX).toStringAsFixed(4)) == -0.7 &&
+          double.parse((attacamapY).toStringAsFixed(4)) == 0.5) {
+        setState(() {
+          attacamapX = -0.7; // Asegúrate de que estas variables estén definidas
+          attacamapY = 0.3;
         });
       }
     }
@@ -293,6 +308,13 @@ class _HomePageState extends State<HomePage> {
           attacamapX -= step;
         });
       }
+      if (double.parse((attacamapX).toStringAsFixed(4)) == -0.9 &&
+          double.parse((attacamapY).toStringAsFixed(4)) == 0.3) {
+        setState(() {
+          attacamapX = -0.7; // Asegúrate de que estas variables estén definidas
+          attacamapY = 0.3;
+        });
+      }
     }
     animateWalk();
   }
@@ -359,14 +381,42 @@ class _HomePageState extends State<HomePage> {
           attacamapX += step;
         });
       }
+      if (double.parse((attacamapX).toStringAsFixed(4)) == -0.5 &&
+          double.parse((attacamapY).toStringAsFixed(4)) == 0.3) {
+        setState(() {
+          attacamapX = -0.7; // Asegúrate de que estas variables estén definidas
+          attacamapY = 0.3;
+        });
+      }
     }
 
     animateWalk();
   }
-//
+//-------------------------------------------------------------------------------------------------------------------------------------
 
   bool showImage = false; // Variable para rastrear si se debe mostrar la imagen
+  //variables de vida-------------------------------------------------------------------------------------------------------------------
+  //char-------------------
+  bool showImage1 = false;
+  bool showImage2 = false;
 
+  bool showImage3 = false;
+  bool showImage4 = false;
+
+  bool showImage5 = false;
+  bool showImage6 = false;
+  //pika---------------------
+  bool showImageap = false;
+  bool showImagep1 = false;
+
+  bool showImagep2 = false;
+
+  bool showImagep3 = false;
+  bool showImagep4 = false;
+
+//battlefinish
+  bool showImageF = false;
+// action button------------------------------------------------------------------------------------------------------------------------
   void pressedB() {
     if (currentLocation == 'littleroot') {
       setState(() {
@@ -471,6 +521,51 @@ class _HomePageState extends State<HomePage> {
       }
     }
     if (currentLocation == 'attackoption') {
+      if (aClickCount == 1) {
+        if (double.parse((attacamapX).toStringAsFixed(4)) == -0.7 &&
+            double.parse((attacamapY).toStringAsFixed(4)) == 0.3) {
+          setState(() {
+            attacamapX =
+                -0.7; // Asegúrate de que estas variables estén definidas
+            attacamapY = 0.3;
+            showImage = true; // Cambia el estado para mostrar la imagen
+          });
+          Timer(Duration(seconds: 1), () {
+            setState(() {
+              showImage = false; // Ocultar la imagen después de 1 segundo
+            });
+          });
+
+          // Código para agregar las imágenes(daño a char)
+          Timer(Duration(seconds: 2), () {
+            setState(() {
+              showImage1 = true;
+              showImage2 = true;
+            });
+          });
+          Timer(Duration(seconds: 3), () {
+            //atacar a pika
+            setState(() {
+              showImageap = true;
+            });
+          });
+          Timer(Duration(seconds: 4), () {
+            setState(() {
+              showImageap = false;
+            });
+          });
+          Timer(Duration(seconds: 5), () {
+            //daño a pika
+            setState(() {
+              showImagep1 = true;
+            });
+          });
+        }
+      }
+    }
+    // Aquí puedes llamar a una función que agregue las imágenes }
+    //   'lib/pokemom_image/blackbar.png'
+    if (currentLocation == 'attackoption') {
       if (aClickCount == 2) {
         if (double.parse((attacamapX).toStringAsFixed(4)) == -0.7 &&
             double.parse((attacamapY).toStringAsFixed(4)) == 0.3) {
@@ -480,10 +575,101 @@ class _HomePageState extends State<HomePage> {
             attacamapY = 0.3;
             showImage = true; // Cambia el estado para mostrar la imagen
           });
+          Timer(Duration(seconds: 1), () {
+            setState(() {
+              showImage = false; // Ocultar la imagen después de 1 segundo
+            });
+          });
+
+          showImage3 = true;
+          showImage4 = true;
+          Timer(Duration(seconds: 1), () {
+            setState(() {
+              showImageap = true;
+            });
+          });
+          Timer(Duration(seconds: 2), () {
+            setState(() {
+              showImageap = false;
+            });
+          });
+          Timer(Duration(seconds: 3), () {
+            setState(() {
+              showImagep2 = true;
+            });
+          });
+        }
+      }
+    } //--------------------------------------------------------------
+    if (currentLocation == 'attackoption') {
+      if (aClickCount == 3) {
+        if (double.parse((attacamapX).toStringAsFixed(4)) == -0.7 &&
+            double.parse((attacamapY).toStringAsFixed(4)) == 0.3) {
+          setState(() {
+            attacamapX =
+                -0.7; // Asegúrate de que estas variables estén definidas
+            attacamapY = 0.3;
+            showImage = true; // Cambia el estado para mostrar la imagen
+          });
+          Timer(Duration(seconds: 1), () {
+            setState(() {
+              showImage = false; // Ocultar la imagen después de 1 segundo
+            });
+          });
+
+          showImage5 = true;
+          showImage6 = true;
+          Timer(Duration(seconds: 1), () {
+            setState(() {
+              showImageap = true;
+            });
+          });
+          Timer(Duration(seconds: 2), () {
+            setState(() {
+              showImageap = false;
+            });
+          });
+          Timer(Duration(seconds: 3), () {
+            setState(() {
+              showImagep3 = true;
+              showImagep4 = true;
+            });
+          });
+          Timer(Duration(seconds: 5), () {
+            setState(() {
+              showImageF = true;
+            });
+          });
+          Timer(Duration(seconds: 6), () {
+            setState(() {
+              currentLocation = 'littleroot';
+              mapX = 0.1000000000000002;
+              mapY = 0.15000000000000002;
+              showImage = false;
+              showImageF = false;
+              showImage1 = false;
+              showImage2 = false;
+
+              showImage3 = false;
+              showImage4 = false;
+
+              showImage5 = false;
+              showImage6 = false;
+              //pika---------------------
+
+              showImagep1 = false;
+
+              showImagep2 = false;
+
+              showImagep3 = false;
+              showImagep4 = false;
+            });
+          });
         }
       }
     }
   }
+
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
   void animateWalk() {
@@ -589,16 +775,6 @@ class _HomePageState extends State<HomePage> {
                         direction: arowDirection,
                       ),
                     ),
-                  //Arow attackoption
-                  if (currentLocation == 'attackoption')
-                    Container(
-                      alignment: Alignment(attacamapX, attacamapY),
-                      child: Arow(
-                        location: currentLocation,
-                        arowSpriteCount: arowSpriteCount,
-                        direction: arowDirection,
-                      ),
-                    ),
 
                   //ProfessorOak
                   Container(
@@ -618,6 +794,123 @@ class _HomePageState extends State<HomePage> {
                         'lib/pokemom_image/text.png', // Muestra la imagen
                       ),
                     ),
+
+//imagenes de la barra de vida--------------------------------------------------------------------------------------------------------
+//charmander-------------------------------------------------------------------------------------------------------------------------------
+                  if (currentLocation == 'attackoption' && showImage1)
+                    Container(
+                      alignment: const Alignment(-0.6, -0.75),
+                      child: Image.asset(
+                        'lib/pokemom_image/blackbar.png', // Muestra la imagen
+                        width: 200, // Ancho de la imagen en píxeles
+                        height: 200,
+                      ),
+                    ),
+                  if (currentLocation == 'attackoption' && showImage1)
+                    Container(
+                      alignment: const Alignment(-0.7, -0.75),
+                      child: Image.asset(
+                        'lib/pokemom_image/blackbar.png', // Muestra la imagen
+                        width: 200, // Ancho de la imagen en píxeles
+                        height: 200,
+                      ),
+                    ),
+                  //---------------------------------------------------------
+                  if (currentLocation == 'attackoption' && showImage3)
+                    Container(
+                      alignment: const Alignment(-0.8, -0.75),
+                      child: Image.asset(
+                        'lib/pokemom_image/blackbar.png', // Muestra la imagen
+                        width: 200, // Ancho de la imagen en píxeles
+                        height: 200,
+                      ),
+                    ),
+                  if (currentLocation == 'attackoption' && showImage4)
+                    Container(
+                      alignment: const Alignment(-0.9, -0.75),
+                      child: Image.asset(
+                        'lib/pokemom_image/blackbar.png', // Muestra la imagen
+                        width: 200, // Ancho de la imagen en píxeles
+                        height: 200,
+                      ),
+                    ),
+                  //----------------------------------------------------------
+                  if (currentLocation == 'attackoption' && showImage5)
+                    Container(
+                      alignment: const Alignment(-1, -0.75),
+                      child: Image.asset(
+                        'lib/pokemom_image/blackbar.png', // Muestra la imagen
+                        width: 200, // Ancho de la imagen en píxeles
+                        height: 200,
+                      ),
+                    ),
+                  if (currentLocation == 'attackoption' && showImage6)
+                    Container(
+                      alignment: const Alignment(-1.1, -0.75),
+                      child: Image.asset(
+                        'lib/pokemom_image/blackbar.png', // Muestra la imagen
+                        width: 200, // Ancho de la imagen en píxeles
+                        height: 200,
+                      ),
+                    ),
+//pikachu-------------------------------------------------------------------------------------------------------------------------------
+                  if (currentLocation == 'attackoption' && showImagep1)
+                    Container(
+                      alignment: const Alignment(1.35, 0.22),
+                      child: Image.asset(
+                        'lib/pokemom_image/blackbar.png', // Muestra la imagen
+                        width: 200, // Ancho de la imagen en píxeles
+                        height: 200,
+                      ),
+                    ),
+                  //----------------------------------------------------------
+                  if (currentLocation == 'attackoption' && showImagep2)
+                    Container(
+                      alignment: const Alignment(1.25, 0.22),
+                      child: Image.asset(
+                        'lib/pokemom_image/blackbar.png', // Muestra la imagen
+                        width: 200, // Ancho de la imagen en píxeles
+                        height: 200,
+                      ),
+                    ),
+                  //---------------------------------------------------------
+                  if (currentLocation == 'attackoption' && showImagep3)
+                    Container(
+                      alignment: const Alignment(1.15, 0.22),
+                      child: Image.asset(
+                        'lib/pokemom_image/blackbar.png', // Muestra la imagen
+                        width: 200, // Ancho de la imagen en píxeles
+                        height: 200,
+                      ),
+                    ),
+                  if (currentLocation == 'attackoption' && showImagep4)
+                    Container(
+                      alignment: const Alignment(1.05, 0.22),
+                      child: Image.asset(
+                        'lib/pokemom_image/blackbar.png', // Muestra la imagen
+                        width: 200, // Ancho de la imagen en píxeles
+                        height: 200,
+                      ),
+                    ),
+//----------------Attack to pikachu-------------------------------------------------------------------------------------------------------
+                  if (currentLocation == 'attackoption' && showImageap)
+                    Container(
+                      alignment: const Alignment(-0.4, 0.05),
+                      child: Image.asset(
+                        'lib/pokemom_image/attackimage.png', // Muestra la imagen
+                      ),
+                    ),
+//----------esto me ayuda a la creacion de la barra de vida--------------------------------------------------------------------------------------------------------------
+                  if (currentLocation == 'attackoption')
+                    Container(
+                      alignment: const Alignment(0, 0),
+                      child: Image.asset(
+                        'lib/pokemom_image/attackoption_2.png', // Muestra la imagen
+                        width: 275, // Ancho de la imagen en píxeles
+                        height: 275,
+                      ),
+                    ),
+//----------------Attack to charmander-------------------------------------------------------------------------------------------------------
                   if (currentLocation == 'attackoption' && showImage)
                     Container(
                       alignment: const Alignment(0.4, -0.3),
@@ -625,7 +918,27 @@ class _HomePageState extends State<HomePage> {
                         'lib/pokemom_image/attackimage.png', // Muestra la imagen
                       ),
                     ),
-                ],
+                  //Arow attackoption------------------------------------------------------------------------------------------------
+                  if (currentLocation == 'attackoption')
+                    Container(
+                      alignment: Alignment(attacamapX, attacamapY),
+                      child: Arow(
+                        location: currentLocation,
+                        arowSpriteCount: arowSpriteCount,
+                        direction: arowDirection,
+                      ),
+                    ),
+                  //battlefinsh
+                  if (currentLocation == 'attackoption' && showImageF)
+                    Container(
+                      alignment: const Alignment(0, 0),
+                      child: Image.asset(
+                        'lib/pokemom_image/battlefinishedscreen.png', // Muestra la imagen
+                        width: 275, // Ancho de la imagen en píxeles
+                        height: 275,
+                      ),
+                    ),
+                ], //-0.6, -0.75
               ),
             ),
           ),
